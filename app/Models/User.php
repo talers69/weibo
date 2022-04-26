@@ -41,4 +41,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * 用来生成用户的头像
+     */
+    public function gravatar($size = '100')
+    {
+        $hash = md5(strtolower(trim($this->attributes['email'])));
+        //return "https://cdn.v2ex.com/gravatar/$hash?s=$size";
+        //return "/avatar/$hash.jpg";
+        return "/avatar/ab2aa0449e908991c43e29ac2e406742.jpg";
+    }
 }
