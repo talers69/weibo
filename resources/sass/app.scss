@@ -16,3 +16,8 @@ nav.navbar.navbar-expand-lg {
   margin-bottom: 20px;
 }
 
+// 定义变量
+$navbar-color: #3c3e42;
+.navbar-inverse {
+  background-color: $navbar-color;
+}
