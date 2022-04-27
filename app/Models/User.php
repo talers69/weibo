@@ -62,4 +62,10 @@ class User extends Authenticatable
         //return "/avatar/$hash.jpg";
         return "/avatar/ab2aa0449e908991c43e29ac2e406742.jpg";
     }
+
+    public function statuses()
+    {
+        return $this->hasMany(Status::class);
+    }
+
 }
