@@ -74,4 +74,45 @@ class User extends Authenticatable
                     ->orderBy('created_at', 'desc');
     }
 
+    // 我的粉丝
+    public function followers()
+    {
+        /**
+         * followers -> 指定关联表名
+         * user_id -> 定义在关联中的模型外键
+         * follower_id -> 则是要合并的模型外键名
+         */
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+    }
+
+    // 我的关注
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
+    }
+
+    // 进行关注
+    public function follow($user_ids)
+    {
+        if ( ! is_array($user_ids)) {
+            $user_ids = compact('user_ids');
+        }
+        $this->followings()->sync($user_ids, false);
+    }
+
+    // 取消关注
+    public function unfollow($user_ids)
+    {
+        if ( ! is_array($user_ids)) {
+            $user_ids = compact('user_ids');
+        }
+        $this->followings()->detach($user_ids);
+    }
+
+    // 是否关注
+    public function isFollowing($user_id)
+    {
+        return $this->followings->contains($user_id);
+    }
+
 }
